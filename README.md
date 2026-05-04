@@ -1,4 +1,4 @@
-# TeamTask — Production-Ready Team Task Manager
+# TeamTask — Production Ready Team Task Manager
 
 A full-stack project and task management web app with role-based access control, JWT auth, and real-time dashboard insights.
 
