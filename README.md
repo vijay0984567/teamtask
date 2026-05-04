@@ -294,4 +294,4 @@ cd frontend && npm run build && npm run preview
 
 ## 📝 License
 
-MIT — Free to use and modify.
+MIT — Copyright (c) 2026 Vijay Kumar.
