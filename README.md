@@ -6,13 +6,13 @@ A full-stack project and task management web app with role-based access control,
 
 ## 🚀 Tech Stack
 
-| Layer | Technology |
-|-------|-----------|
-| Frontend | React 18 + Vite + Tailwind CSS |
-| Backend | Node.js + Express |
-| Database | MongoDB (Mongoose) |
-| Auth | JWT + bcrypt |
-| Deployment | Railway |
+| Layer      | Technology                     |
+| ---------- | ------------------------------ |
+| Frontend   | React 18 + Vite + Tailwind CSS |
+| Backend    | Node.js + Express              |
+| Database   | MongoDB (Mongoose)             |
+| Auth       | JWT + bcrypt                   |
+| Deployment | Railway                        |
 
 ---
 
@@ -68,8 +68,9 @@ teamtask/
 ## ⚙️ Local Setup
 
 ### Prerequisites
+
 - Node.js 18+
-- MongoDB Atlas account (free tier works)
+- MongoDB Atlas account
 
 ### 1. Clone & Install
 
@@ -91,6 +92,7 @@ npm install
 ### 2. Configure Environment Variables
 
 **backend/.env**
+
 ```env
 PORT=5000
 MONGODB_URI=mongodb+srv://USER:PASS@cluster.mongodb.net/teamtask
@@ -100,6 +102,7 @@ CLIENT_URL=http://localhost:5173
 ```
 
 **frontend/.env**
+
 ```env
 VITE_API_URL=http://localhost:5000/api
 ```
@@ -121,33 +124,36 @@ App runs at: http://localhost:5173
 ## 🗄️ Database Schema
 
 ### User
-| Field | Type | Notes |
-|-------|------|-------|
-| name | String | required |
-| email | String | unique, lowercase |
-| password | String | bcrypt hashed |
-| role | Enum | Admin / Member |
+
+| Field    | Type   | Notes             |
+| -------- | ------ | ----------------- |
+| name     | String | required          |
+| email    | String | unique, lowercase |
+| password | String | bcrypt hashed     |
+| role     | Enum   | Admin / Member    |
 
 ### Project
-| Field | Type | Notes |
-|-------|------|-------|
-| name | String | required |
-| description | String | optional |
-| createdBy | ObjectId | ref: User |
-| members | Array | [{user, role}] |
-| color | String | hex color |
+
+| Field       | Type     | Notes          |
+| ----------- | -------- | -------------- |
+| name        | String   | required       |
+| description | String   | optional       |
+| createdBy   | ObjectId | ref: User      |
+| members     | Array    | [{user, role}] |
+| color       | String   | hex color      |
 
 ### Task
-| Field | Type | Notes |
-|-------|------|-------|
-| title | String | required |
-| description | String | optional |
-| projectId | ObjectId | ref: Project |
-| assignedTo | ObjectId | ref: User |
-| createdBy | ObjectId | ref: User |
-| status | Enum | Todo / In Progress / Done |
-| priority | Enum | Low / Medium / High |
-| dueDate | Date | optional |
+
+| Field       | Type     | Notes                     |
+| ----------- | -------- | ------------------------- |
+| title       | String   | required                  |
+| description | String   | optional                  |
+| projectId   | ObjectId | ref: Project              |
+| assignedTo  | ObjectId | ref: User                 |
+| createdBy   | ObjectId | ref: User                 |
+| status      | Enum     | Todo / In Progress / Done |
+| priority    | Enum     | Low / Medium / High       |
+| dueDate     | Date     | optional                  |
 
 ---
 
@@ -155,33 +161,33 @@ App runs at: http://localhost:5173
 
 ### Auth Routes
 
-| Method | Endpoint | Auth | Body |
-|--------|----------|------|------|
-| POST | /api/auth/signup | ❌ | {name, email, password, role} |
-| POST | /api/auth/login | ❌ | {email, password} |
-| GET | /api/auth/me | ✅ | — |
+| Method | Endpoint         | Auth | Body                          |
+| ------ | ---------------- | ---- | ----------------------------- |
+| POST   | /api/auth/signup | ❌   | {name, email, password, role} |
+| POST   | /api/auth/login  | ❌   | {email, password}             |
+| GET    | /api/auth/me     | ✅   | —                             |
 
 ### Project Routes
 
-| Method | Endpoint | Auth | Notes |
-|--------|----------|------|-------|
-| GET | /api/projects | ✅ | Returns user's projects |
-| POST | /api/projects | ✅ | Create project |
-| GET | /api/projects/:id | ✅ | Project + members |
-| PUT | /api/projects/:id | ✅ Admin | Update project |
-| DELETE | /api/projects/:id | ✅ Admin | Delete + tasks |
-| POST | /api/projects/:id/members | ✅ Admin | Add member by email |
-| DELETE | /api/projects/:id/members/:userId | ✅ Admin | Remove member |
+| Method | Endpoint                          | Auth     | Notes                   |
+| ------ | --------------------------------- | -------- | ----------------------- |
+| GET    | /api/projects                     | ✅       | Returns user's projects |
+| POST   | /api/projects                     | ✅       | Create project          |
+| GET    | /api/projects/:id                 | ✅       | Project + members       |
+| PUT    | /api/projects/:id                 | ✅ Admin | Update project          |
+| DELETE | /api/projects/:id                 | ✅ Admin | Delete + tasks          |
+| POST   | /api/projects/:id/members         | ✅ Admin | Add member by email     |
+| DELETE | /api/projects/:id/members/:userId | ✅ Admin | Remove member           |
 
 ### Task Routes
 
-| Method | Endpoint | Auth | Notes |
-|--------|----------|------|-------|
-| GET | /api/tasks/dashboard | ✅ | Stats + overdue |
-| GET | /api/tasks | ✅ | ?projectId=&status= |
-| POST | /api/tasks | ✅ Admin | Create task |
-| PUT | /api/tasks/:id | ✅ | Admin: all fields; Member: status only |
-| DELETE | /api/tasks/:id | ✅ Admin | Delete task |
+| Method | Endpoint             | Auth     | Notes                                  |
+| ------ | -------------------- | -------- | -------------------------------------- |
+| GET    | /api/tasks/dashboard | ✅       | Stats + overdue                        |
+| GET    | /api/tasks           | ✅       | ?projectId=&status=                    |
+| POST   | /api/tasks           | ✅ Admin | Create task                            |
+| PUT    | /api/tasks/:id       | ✅       | Admin: all fields; Member: status only |
+| DELETE | /api/tasks/:id       | ✅ Admin | Delete task                            |
 
 ---
 
@@ -220,6 +226,7 @@ App runs at: http://localhost:5173
 4. Start Command: `npx serve dist -p $PORT`
 
    Or install serve: add to frontend package.json:
+
    ```json
    "start": "npx serve dist -p $PORT"
    ```
@@ -238,10 +245,10 @@ curl https://your-backend.railway.app/health
 
 ## 🔑 Demo Credentials
 
-| Role | Email | Password |
-|------|-------|----------|
-| Admin | admin@demo.com | demo123 |
-| Member | member@demo.com | demo123 |
+| Role   | Email           | Password |
+| ------ | --------------- | -------- |
+| Admin  | admin@demo.com  | demo123  |
+| Member | member@demo.com | demo123  |
 
 > Note: These are shown on the login page for easy testing. Create these accounts via signup to use them.
 
@@ -249,16 +256,16 @@ curl https://your-backend.railway.app/health
 
 ## 🔐 Role-Based Access
 
-| Action | Admin | Member |
-|--------|-------|--------|
-| Create project | ✅ | ✅ |
-| Delete project | ✅ (own) | ❌ |
-| Add/remove members | ✅ | ❌ |
-| Create tasks | ✅ | ❌ |
-| Delete tasks | ✅ | ❌ |
-| Update any task field | ✅ | ❌ |
-| Update own task status | ✅ | ✅ |
-| View dashboard | ✅ | ✅ |
+| Action                 | Admin    | Member |
+| ---------------------- | -------- | ------ |
+| Create project         | ✅       | ✅     |
+| Delete project         | ✅ (own) | ❌     |
+| Add/remove members     | ✅       | ❌     |
+| Create tasks           | ✅       | ❌     |
+| Delete tasks           | ✅       | ❌     |
+| Update any task field  | ✅       | ❌     |
+| Update own task status | ✅       | ✅     |
+| View dashboard         | ✅       | ✅     |
 
 ---
 
